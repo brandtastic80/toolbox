@@ -1,0 +1,67 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: toolbox-jq-kcat
+  labels:
+    app: toolbox
+    tool: jq-kcat
+    purpose: debugging
+spec:
+  containers:
+  - name: jq-kcat
+    # Update this image reference to match your Docker registry
+    # Example: docker.io/yourusername/jq-kcat:latest
+    # Example: ghcr.io/yourusername/jq-kcat:latest
+    # Example: yourregistry.azurecr.io/jq-kcat:latest
+    image: docker.io/brandtastic80/jq-kcat:latest
+    imagePullPolicy: Always
+    
+    # Keep the pod running
+    command: ["/bin/bash"]
+    args: ["-c", "tail -f /dev/null"]
+    
+    # Resource limits
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "100m"
+      limits:
+        memory: "256Mi"
+        cpu: "500m"
+    
+    # Environment variables (customize as needed)
+    env:
+    - name: KAFKA_BROKERS
+      value: "kafka-broker:9092"
+    # - name: KAFKA_TOPIC
+    #   value: "my-topic"
+    
+    # Optional: Mount volumes for configs or data
+    # volumeMounts:
+    # - name: config
+    #   mountPath: /config
+    #   readOnly: true
+  
+  # Optional: Image pull secrets for private registries
+  # imagePullSecrets:
+  # - name: registry-credentials
+  
+  # Optional: Volumes
+  # volumes:
+  # - name: config
+  #   configMap:
+  #     name: toolbox-config
+  
+  # Restart policy
+  restartPolicy: Never
+  
+  # Optional: Node selector
+  # nodeSelector:
+  #   workload: debugging
+  
+  # Optional: Tolerations
+  # tolerations:
+  # - key: "debugging"
+  #   operator: "Equal"
+  #   value: "true"
+  #   effect: "NoSchedule"
