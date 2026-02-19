@@ -34,7 +34,7 @@ spec:
     - name: KAFKA_BROKERS
       value: "kafka-broker:9092"
     - name: VERSION_TEST
-      value: "Minor version of repo"
+      value: "RC test"
     
     # Optional: Mount volumes for configs or data
     # volumeMounts:
