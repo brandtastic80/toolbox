@@ -11,6 +11,7 @@ RUN apk add --no-cache \
     curl \
     jq \
     kcat \
+    tmux \
     ca-certificates \
     && rm -rf /var/cache/apk/*
 
@@ -19,7 +20,7 @@ RUN addgroup -g 1000 toolbox && \
     adduser -D -u 1000 -G toolbox toolbox
 
 # Set working directory
-WORKDIR /workspace
+WORKDIR /home/toolbox
 
 # Switch to non-root user
 USER toolbox
